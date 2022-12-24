@@ -1,6 +1,9 @@
 package guru.springframework.domain;
 
+import guru.springframework.enums.Difficulty;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -18,8 +21,11 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
-    // todo
-    //  Will add Difficulty object
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
+
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
     @Lob
     private Byte[] image;
 
