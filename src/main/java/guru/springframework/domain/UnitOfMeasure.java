@@ -9,7 +9,7 @@ public class UnitOfMeasure {
     @Id
     private Long id;
 
-    private String UnitOfMeasurement;
+    private String description;
 
     public Long getId() {
         return id;
@@ -18,12 +18,11 @@ public class UnitOfMeasure {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getUnitOfMeasurement() {
-        return UnitOfMeasurement;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUnitOfMeasurement(String unitOfMeasurement) {
-        UnitOfMeasurement = unitOfMeasurement;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
