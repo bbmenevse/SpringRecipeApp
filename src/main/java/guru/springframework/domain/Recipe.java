@@ -3,6 +3,7 @@ package guru.springframework.domain;
 import guru.springframework.enums.Difficulty;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,7 +23,7 @@ public class Recipe {
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
@@ -34,7 +35,7 @@ public class Recipe {
             joinColumns = @JoinColumn(name="recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     // Works without Jointable. Jointable only helps with the naming of table column names; recipe_id when used. recipes_id Otherwise.
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public String getDescription() {
         return description;
