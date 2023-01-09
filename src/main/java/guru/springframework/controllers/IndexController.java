@@ -1,6 +1,7 @@
 package guru.springframework.controllers;
 import guru.springframework.services.RecipeService;
 import guru.springframework.services.RecipeServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
+@Slf4j
 public class IndexController {
 
     private final RecipeService recipeService;
