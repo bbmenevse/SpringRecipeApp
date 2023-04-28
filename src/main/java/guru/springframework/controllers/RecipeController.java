@@ -4,10 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RecipeController {
@@ -24,27 +21,34 @@ public class RecipeController {
         return "recipe/view";
     }
 
-    @RequestMapping("recipe/new")
+    @GetMapping("recipe/new")
     public String createRecipe(Model model)
     {
         model.addAttribute("recipe",new RecipeCommand());
-
         return "recipe/form";
     }
 
-    @PostMapping()
-    @RequestMapping("recipe")
+    @PostMapping("recipe")
     public String saveRecipe(@ModelAttribute RecipeCommand command)
     {
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
         return "redirect:view/" + savedCommand.getId();
     }
 
-    @RequestMapping("recipe/update/{id}")
+    @GetMapping("recipe/update/{id}")
     public String updateRecipe(@PathVariable Long id,Model model)
     {
         model.addAttribute("recipe",recipeService.findCommandById(id));
         return "recipe/form";
+    }
+
+    @RequestMapping("recipe/delete/{id}")
+    public String deleteRecipe(@PathVariable String id) {
+        // Using DeleteMapping raises a "Request method 'GET' not supported" problem.
+        // This works but, it should not be used as it is. It is open to be exploited.
+        // Using Ajax/Javascript on the index.html would be a better solution in a real project (probably?).
+        recipeService.deleteById(Long.valueOf(id));
+        return "redirect:/";
     }
 
 
