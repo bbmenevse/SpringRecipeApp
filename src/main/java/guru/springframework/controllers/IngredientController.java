@@ -1,5 +1,7 @@
 package guru.springframework.controllers;
 
+import guru.springframework.domain.Ingredient;
+import guru.springframework.domain.Recipe;
 import guru.springframework.services.IngredientService;
 import guru.springframework.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ public class IngredientController {
     @RequestMapping("recipe/ingredient/index/{id}")
     public String showIngredient(@PathVariable Long id, Model model){
         model.addAttribute("recipe",recipeService.findCommandById(id));
+        //Recipe recipe = recipeService.findById(id);
         return "/recipe/ingredient/index";
     }
 
@@ -33,6 +36,7 @@ public class IngredientController {
     public String showIngredientByRecipe(@PathVariable Long id, Model model)
     {
         model.addAttribute("ingredient",ingredientService.findCommandById(id));
+        //Ingredient ingredient = ingredientService.findById(id);
         return "/recipe/ingredient/view";
     }
 

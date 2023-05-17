@@ -37,8 +37,10 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<!-- After going back to community version of Intellij from Ultimate edition, Lombok version made Maven give out errors. -->
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
 		</dependency>
 
 		<dependency>

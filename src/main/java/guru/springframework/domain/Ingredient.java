@@ -5,8 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
 @Entity
+@Data
 @EqualsAndHashCode(exclude = "recipe")
 public class Ingredient {
 

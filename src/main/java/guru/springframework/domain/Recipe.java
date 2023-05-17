@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Data
 @EqualsAndHashCode(exclude={"categories","ingredients"})
-@ToString(exclude = "categories")
+//@ToString(exclude = "categories")
 public class Recipe {
 
     @Id
@@ -42,5 +42,13 @@ public class Recipe {
     // Works without Jointable. Jointable only helps with the naming of table column names; recipe_id when used. recipes_id Otherwise.
     private Set<Category> categories = new HashSet<>();
 
-
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", prepTime=" + prepTime +
+                ", cookTime=" + cookTime +
+                '}';
+    }
 }
