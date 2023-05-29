@@ -1,0 +1,26 @@
+.hyperbutton {
+    background: #ff7f00;
+    background-image: -webkit-linear-gradient(top, #ff7f00, #ff7f00);
+    background-image: -moz-linear-gradient(top, #ff7f00, #ff7f00);
+    background-image: -ms-linear-gradient(top, #ff7f00, #ff7f00);
+    background-image: -o-linear-gradient(top, #ff7f00, #ff7f00);
+    background-image: linear-gradient(to bottom, #ff7f00, #ff7f00);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.hyperbutton:hover {
+  background: #ffa8f5;
+  background-image: -webkit-linear-gradient(top, #ffa8f5, #3498db);
+  background-image: -moz-linear-gradient(top, #ffa8f5, #3498db);
+  background-image: -ms-linear-gradient(top, #ffa8f5, #3498db);
+  background-image: -o-linear-gradient(top, #ffa8f5, #3498db);
+  background-image: linear-gradient(to bottom, #ffa8f5, #3498db);
+  text-decoration: none;
+}

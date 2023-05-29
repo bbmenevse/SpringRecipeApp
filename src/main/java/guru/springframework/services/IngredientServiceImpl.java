@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Slf4j
 @Service
 public class IngredientServiceImpl implements IngredientService {
@@ -34,5 +37,12 @@ public class IngredientServiceImpl implements IngredientService {
     @Transactional
     public IngredientCommand findCommandById(Long id) {
         return ingredientToIngredientCommand.convert(findById(id));
+    }
+
+    @Override
+    public Set<Ingredient> getIngredients() {
+        Set<Ingredient> ingredientSet = new HashSet<>();
+        ingredientRepository.findAll().iterator().forEachRemaining(ingredientSet::add);
+        return ingredientSet;
     }
 }

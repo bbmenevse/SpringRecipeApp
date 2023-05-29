@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -24,4 +26,19 @@ public class RecipeCommand {
     private Set<IngredientCommand> ingredients = new HashSet<>();
     private Difficulty difficulty;
     private Set<CategoryCommand> categories = new HashSet<>();
+
+    /*
+    public List<IngredientCommand> getIngredients() {
+        return new ArrayList<>(ingredients);
+    }
+
+    public void setIngredients(List<IngredientCommand> ingredients) {
+        this.ingredients = new HashSet<>(ingredients) ;
+    }
+*/
+    public void addIngredient(IngredientCommand ingredient) {
+        ingredients.add(ingredient);
+    }
+
+
 }

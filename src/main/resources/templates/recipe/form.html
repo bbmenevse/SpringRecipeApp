@@ -14,7 +14,7 @@
     <div class="container-fluid" style="margin-top: 20px;">
         <div class="row">
             <div class="col-md-6 col-md-offset-3" style="margin:0 auto">
-                <form  th:object="${recipe}" th:action="@{/recipe/}"  method="post">
+                <form th:object="${recipe}" th:action="@{/recipe/}"  method="post">
                     <input type="hidden" th:field="*{id}"/>
                     <div class="card-group">
                         <div class="card border-primary" style="background-color: #ea0606">
@@ -86,24 +86,27 @@
                         <div class="card border-primary">
                             <div class="card-heading">
                                 <div class="row">
-                                    <div class="col-md-11 ">
+                                    <div class="col-md-11">
                                         <h1 class="card-title">Ingredients</h1>
                                     </div>
                                     <div class="col-md-1">
-                                        <a class="btn btn-default" href="#" role="button">Edit</a>
+                                        <button class="btn btn-default" type="button" id="addIngredientBtn" onclick="addIngredient()">Add</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <ul>
-                                            <li th:remove="all">1 Cup of milk</li>
-                                            <li th:remove="all">1 Teaspoon of chocolate</li>
-                                            <li th:each="ingredient : ${recipe.ingredients}"
-                                                th:text="${(ingredient.getAmount() +
-                                        ' ' + ingredient.unitOfMeasure.getDescription() +
-                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+                                        <ul id="ingredientList">
+                                            <li th:each="ingredient: ${ingredientList}">
+                                                <input type="hidden" th:field="*{ingredients[__${stat.index}__].id"/>
+                                                <div>
+                                                    <input type="text" th:field="*{ingredients[__${stat.index}__].description}" />
+                                                    <select class="form-control" th:field="*{ingredients[__${stat.index}__].unitOfMeasure}">
+                                                        <option th:each="item : ${uomList}"  th:value="${item.id}" th:text="${item.description}"></option>
+                                                    </select>
+                                                    <input type="text" placeholder="Amount" th:field="*{ingredients[__${stat.index}__].amount}"/>
+                                                </div>
                                             </li>
                                         </ul>
                                     </div>
@@ -148,3 +151,47 @@
     </div>
 </body>
 </html>
+<script>
+  function addIngredient() {
+    // Create a new input field for the ingredient amount
+    var amountInput = document.createElement("input");
+    amountInput.type = "text";
+    amountInput.name = "newIngredientAmount";
+    amountInput.placeholder = "Enter amount";
+
+    // Create a new input field for the ingredient description
+    var descriptionInput = document.createElement("input");
+    descriptionInput.type = "text";
+    descriptionInput.name = "newIngredientDescription";
+    descriptionInput.placeholder = "Enter description";
+
+    // Create a new select element for the unit of measure
+    var uomSelect = document.createElement("select");
+    uomSelect.name = "newIngredientUOM";
+
+    // Add options to the unit of measure select element
+    var uomOptions = ["Teaspoon", "Tablespoon", "Cup"];
+
+    for (var i = 0; i < uomOptions.length; i++) {
+      var option = document.createElement("option");
+      option.value = uomOptions[i];
+      option.text = uomOptions[i];
+      uomSelect.appendChild(option);
+    }
+
+    // Create a new list item to contain the ingredient inputs
+    var listItem = document.createElement("li");
+    listItem.appendChild(amountInput);
+    listItem.appendChild(document.createTextNode(" "));
+    listItem.appendChild(uomSelect);
+    listItem.appendChild(document.createTextNode(" - "));
+    listItem.appendChild(descriptionInput);
+
+    // Append the new list item to the ingredient list
+    var ingredientList = document.getElementById("ingredientList");
+    ingredientList.appendChild(listItem);
+
+    // Hide the "Add" button
+    var addIngredientBtn = document.getElementById("addIngredientBtn");
+  }
+</script>

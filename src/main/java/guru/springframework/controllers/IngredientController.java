@@ -23,8 +23,6 @@ public class IngredientController {
         this.ingredientService=ingredientService;
     }
 
-
-
     @RequestMapping("recipe/ingredient/index/{id}")
     public String showIngredient(@PathVariable Long id, Model model){
         model.addAttribute("recipe",recipeService.findCommandById(id));

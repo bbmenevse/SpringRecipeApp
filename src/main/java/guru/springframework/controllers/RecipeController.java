@@ -1,18 +1,30 @@
 package guru.springframework.controllers;
 
+import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.commands.UnitOfMeasureCommand;
+import guru.springframework.domain.Ingredient;
+import guru.springframework.services.IngredientService;
 import guru.springframework.services.RecipeService;
+import guru.springframework.services.UnitOfMeasureService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class RecipeController {
     private final RecipeService recipeService;
+    private final IngredientService ingredientService;
+    private final UnitOfMeasureService unitOfMeasureService;
 
-    public RecipeController(RecipeService recipeService)
-    {
-        this.recipeService=recipeService;
+
+    public RecipeController(RecipeService recipeService, IngredientService ingredientService, UnitOfMeasureService unitOfMeasureService) {
+        this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
+        this.unitOfMeasureService = unitOfMeasureService;
     }
 
     @RequestMapping("recipe/view/{id}")
@@ -25,6 +37,8 @@ public class RecipeController {
     public String createRecipe(Model model)
     {
         model.addAttribute("recipe",new RecipeCommand());
+        model.addAttribute("ingredientList", new IngredientCommand());
+        model.addAttribute("uomList", new UnitOfMeasureCommand());
         return "recipe/form";
     }
 
@@ -32,13 +46,18 @@ public class RecipeController {
     public String saveRecipe(@ModelAttribute RecipeCommand command)
     {
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
+
         return "redirect:view/" + savedCommand.getId();
     }
 
     @GetMapping("recipe/update/{id}")
     public String updateRecipe(@PathVariable Long id,Model model)
     {
+
+        List<Ingredient> ingList = new ArrayList<>(ingredientService.getIngredients());
         model.addAttribute("recipe",recipeService.findCommandById(id));
+        model.addAttribute("ingredientList",ingList);
+        model.addAttribute("uomList",unitOfMeasureService.getUnitOfMeasures());
         return "recipe/form";
     }
 
