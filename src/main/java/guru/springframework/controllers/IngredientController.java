@@ -40,10 +40,6 @@ public class IngredientController {
 
     @RequestMapping("recipe/ingredient/delete/{id}")
     public String deleteIngredient(@PathVariable String id) {
-        // Using DeleteMapping raises a "Request method 'GET' not supported" problem.
-        // This works but, it should not be used as it is. It is open to be exploited.
-        // Using Ajax/Javascript on the index.html would be a better solution in a real project (probably?).
-
         long ID = ingredientService.findById(Long.valueOf(id)).getRecipe().getId();
         ingredientService.deleteById(Long.valueOf(id));
         return "redirect:/recipe/ingredient/index/"+ID;
