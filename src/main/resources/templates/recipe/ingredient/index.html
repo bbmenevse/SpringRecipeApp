@@ -32,9 +32,14 @@
                                     <td th:text="${ingredient.id}"></td>
                                     <td th:text="${ingredient.getAmount()}"></td>
                                     <td>
-                                        <a th:href="@{'/recipe/ingredient/view/'+ ${ingredient.id}}" th:text="View">View</a>
-                                        <h3>   </h3>
-                                        <a th:href="@{'/recipe/ingredient/update/'+ ${ingredient.id}}" th:text="Update">Update</a>
+                                        <div>
+                                            <a th:href="@{'/recipe/ingredient/view/'+ ${ingredient.id}}" th:text="View">View</a>
+                                            <h3>   </h3>
+                                            <a th:href="@{'/recipe/ingredient/update/'+ ${ingredient.id}}" th:text="Update">Update</a>
+                                            <h3>   </h3>
+                                            <a th:href="@{'/recipe/ingredient/delete/'+ ${ingredient.id}}" th:text="Delete">Delete</a>
+                                        </div>
+
                                     </td>
                                 </tr>
                                 </tbody>

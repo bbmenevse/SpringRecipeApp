@@ -48,6 +48,11 @@ public class IngredientServiceImpl implements IngredientService {
         return ingredientSet;
     }
 
+    @Override
+    public void deleteById(Long idToDelete) {
+        ingredientRepository.deleteById(idToDelete);
+    }
+
 
     @Override
     public List<Ingredient> getIngredientsByRecipeID(Long id) {

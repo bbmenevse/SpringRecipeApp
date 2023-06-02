@@ -55,12 +55,6 @@ public class RecipeController {
     @GetMapping("recipe/update/{id}")
     public String updateRecipe(@PathVariable Long id, Model model)
     {
-        /*
-        RecipeCommand recipeCommand = recipeService.findCommandById(id); // Get the recipe command
-        for (IngredientCommand ingredientCommand : recipeCommand.getIngredients()) {
-            ingredientCommand.setRecipe(recipeCommand);
-        }
-        */
         model.addAttribute("recipe",recipeService.findCommandById(id));
         model.addAttribute("uomList",unitOfMeasureService.getUnitOfMeasures());
         return "recipe/form";
