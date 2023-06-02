@@ -15,5 +15,7 @@ public interface IngredientService {
 
     Set<Ingredient> getIngredients();
 
+    void deleteById(Long id);
+
     List<Ingredient> getIngredientsByRecipeID(Long id);
 }
