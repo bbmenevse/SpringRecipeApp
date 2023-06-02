@@ -4,7 +4,9 @@ import guru.springframework.enums.Difficulty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,22 +25,8 @@ public class RecipeCommand {
     private String url;
     private String directions;
     private NotesCommand notes;
-    private Set<IngredientCommand> ingredients = new HashSet<>();
+    private List<IngredientCommand> ingredients =new ArrayList<>();
+    //private Set<IngredientCommand> ingredients = new HashSet<>();
     private Difficulty difficulty;
     private Set<CategoryCommand> categories = new HashSet<>();
-
-    /*
-    public List<IngredientCommand> getIngredients() {
-        return new ArrayList<>(ingredients);
-    }
-
-    public void setIngredients(List<IngredientCommand> ingredients) {
-        this.ingredients = new HashSet<>(ingredients) ;
-    }
-*/
-    public void addIngredient(IngredientCommand ingredient) {
-        ingredients.add(ingredient);
-    }
-
-
 }

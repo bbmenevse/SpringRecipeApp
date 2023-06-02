@@ -9,8 +9,10 @@ import guru.springframework.services.RecipeService;
 import guru.springframework.services.UnitOfMeasureService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,26 +39,29 @@ public class RecipeController {
     public String createRecipe(Model model)
     {
         model.addAttribute("recipe",new RecipeCommand());
-        model.addAttribute("ingredientList", new IngredientCommand());
-        model.addAttribute("uomList", new UnitOfMeasureCommand());
+        model.addAttribute("ingredients", new IngredientCommand());
+        model.addAttribute("uomList", unitOfMeasureService.getUnitOfMeasures());
         return "recipe/form";
     }
 
     @PostMapping("recipe")
-    public String saveRecipe(@ModelAttribute RecipeCommand command)
+    public String saveRecipe(@ModelAttribute RecipeCommand recipeCommand)
     {
-        RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
 
         return "redirect:view/" + savedCommand.getId();
     }
 
     @GetMapping("recipe/update/{id}")
-    public String updateRecipe(@PathVariable Long id,Model model)
+    public String updateRecipe(@PathVariable Long id, Model model)
     {
-
-        List<Ingredient> ingList = new ArrayList<>(ingredientService.getIngredients());
+        /*
+        RecipeCommand recipeCommand = recipeService.findCommandById(id); // Get the recipe command
+        for (IngredientCommand ingredientCommand : recipeCommand.getIngredients()) {
+            ingredientCommand.setRecipe(recipeCommand);
+        }
+        */
         model.addAttribute("recipe",recipeService.findCommandById(id));
-        model.addAttribute("ingredientList",ingList);
         model.addAttribute("uomList",unitOfMeasureService.getUnitOfMeasures());
         return "recipe/form";
     }

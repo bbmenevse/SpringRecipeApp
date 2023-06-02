@@ -3,6 +3,7 @@ package guru.springframework.services;
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.domain.Ingredient;
 
+import java.util.List;
 import java.util.Set;
 
 public interface IngredientService {
@@ -13,4 +14,6 @@ public interface IngredientService {
     IngredientCommand findCommandById(Long id);
 
     Set<Ingredient> getIngredients();
+
+    List<Ingredient> getIngredientsByRecipeID(Long id);
 }

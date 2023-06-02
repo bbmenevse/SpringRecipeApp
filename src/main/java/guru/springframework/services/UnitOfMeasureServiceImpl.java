@@ -18,8 +18,6 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService{
         this.unitOfMeasureRepository = unitOfMeasureRepository;
     }
 
-
-
     public List<UnitOfMeasure> getUnitOfMeasures()
     {
         List<UnitOfMeasure> unitOfMeasureList = new ArrayList<>();

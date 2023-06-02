@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Slf4j
@@ -43,6 +45,16 @@ public class IngredientServiceImpl implements IngredientService {
     public Set<Ingredient> getIngredients() {
         Set<Ingredient> ingredientSet = new HashSet<>();
         ingredientRepository.findAll().iterator().forEachRemaining(ingredientSet::add);
+        return ingredientSet;
+    }
+
+
+    @Override
+    public List<Ingredient> getIngredientsByRecipeID(Long id) {
+        //Set<Ingredient> ingredientSet = new HashSet<>();
+        List<Ingredient> ingredientSet = new ArrayList<>();
+        ingredientRepository.findAll().iterator().forEachRemaining((ingredient -> {if(ingredient.getRecipe().getId()==id)
+        ingredientSet.add(ingredient);}));
         return ingredientSet;
     }
 }
