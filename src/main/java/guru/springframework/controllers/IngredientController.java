@@ -40,6 +40,7 @@ public class IngredientController {
 
     @RequestMapping("recipe/ingredient/delete/{id}")
     public String deleteIngredient(@PathVariable String id) {
+
         long ID = ingredientService.findById(Long.valueOf(id)).getRecipe().getId();
         ingredientService.deleteById(Long.valueOf(id));
         return "redirect:/recipe/ingredient/index/"+ID;
