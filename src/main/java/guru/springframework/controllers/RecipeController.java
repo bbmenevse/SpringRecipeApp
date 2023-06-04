@@ -19,13 +19,13 @@ import java.util.List;
 @Controller
 public class RecipeController {
     private final RecipeService recipeService;
-    private final IngredientService ingredientService;
+
     private final UnitOfMeasureService unitOfMeasureService;
 
 
-    public RecipeController(RecipeService recipeService, IngredientService ingredientService, UnitOfMeasureService unitOfMeasureService) {
+    public RecipeController(RecipeService recipeService, UnitOfMeasureService unitOfMeasureService) {
         this.recipeService = recipeService;
-        this.ingredientService = ingredientService;
+
         this.unitOfMeasureService = unitOfMeasureService;
     }
 
