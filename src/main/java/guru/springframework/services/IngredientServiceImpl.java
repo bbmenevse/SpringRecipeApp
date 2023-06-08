@@ -8,7 +8,6 @@ import guru.springframework.repositories.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +48,15 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    @Transactional
+    public IngredientCommand saveIngredientCommand(IngredientCommand command) {
+        Ingredient detachedIngredient = ingredientCommandToIngredient.convert(command);
+        Ingredient savedIngredient = ingredientRepository.save(detachedIngredient);
+        log.debug("Saved IngredientId:" + savedIngredient.getId());
+        return ingredientToIngredientCommand.convert(savedIngredient);
+    }
+
+    @Override
     public void deleteById(Long idToDelete) {
         ingredientRepository.deleteById(idToDelete);
     }
@@ -62,4 +70,5 @@ public class IngredientServiceImpl implements IngredientService {
         ingredientSet.add(ingredient);}));
         return ingredientSet;
     }
+
 }

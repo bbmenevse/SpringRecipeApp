@@ -18,4 +18,6 @@ public interface IngredientService {
     void deleteById(Long id);
 
     List<Ingredient> getIngredientsByRecipeID(Long id);
+
+    IngredientCommand saveIngredientCommand(IngredientCommand command);
 }

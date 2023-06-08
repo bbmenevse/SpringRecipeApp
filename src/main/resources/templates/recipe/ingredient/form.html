@@ -13,16 +13,14 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row justify-content-center">
         <div class="col-md-6 col-md-offset-3">
-            <form  th:object="${ingredient}" th:action="@{'/recipe/' + '/ingredient' + + ${ingredient.getRecipeId()}} " method="post">
+            <form  th:object="${ingredient}" th:action="@{'/recipe/ingredient/'}" method="post">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="card border border-primary">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Edit Ingredient Information</h1>
+                            <h1 class="panel-title">Ingredient Information</h1>
                         </div>
                         <div class="panel-body" style="margin-bottom: 20px">
-
-
                             <div class="row">
                                 <div class="col-md-3 form-group">
                                     <label>Description:</label>
@@ -36,12 +34,12 @@
 
                                 <div class="col-md-3 form-group">
                                     <label>UOM:</label>
-                                    <select class="form-control" name="uom.id">
+                                    <select class="form-control" th:field="*{unitOfMeasure.id}">
                                         <option th:each="uomEach : ${uomList}"
                                                 th:value="${uomEach.id}"
-                                                th:selected="${uomEach.id.equals(ingredient.uom.id)}"
                                                 th:text="${uomEach.description}">Each</option>
                                     </select>
+                                    <input type="hidden" th:field="*{recipe.id}"/>
                                 </div>
                             </div>
                         </div>
