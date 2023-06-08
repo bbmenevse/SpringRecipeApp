@@ -1,5 +1,7 @@
 package guru.springframework.controllers;
 
+import guru.springframework.commands.IngredientCommand;
+import guru.springframework.commands.RecipeCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
 import guru.springframework.services.IngredientService;
@@ -7,8 +9,7 @@ import guru.springframework.services.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class IngredientController {
@@ -36,6 +37,28 @@ public class IngredientController {
         model.addAttribute("ingredient",ingredientService.findCommandById(id));
         //Ingredient ingredient = ingredientService.findById(id);
         return "/recipe/ingredient/view";
+    }
+
+    @GetMapping("")
+    public String createIngredient(Model model)
+    {
+        model.addAttribute("ingredients", new IngredientCommand());
+        return "";
+    }
+
+    @GetMapping("")
+    public String updateIngredient(@PathVariable Long id, Model model)
+    {
+        model.addAttribute("ingredient",ingredientService.findCommandById(id));
+        return "";
+    }
+
+    @PostMapping("recipe")
+    public String saveRecipe(@ModelAttribute RecipeCommand recipeCommand)
+    {
+        RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
+
+        return "redirect:view/" + savedCommand.getId();
     }
 
     @RequestMapping("recipe/ingredient/delete/{id}")
