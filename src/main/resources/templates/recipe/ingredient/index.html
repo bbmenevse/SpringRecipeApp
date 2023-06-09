@@ -16,6 +16,9 @@
                 <div class="card border border-primary">
                     <div class="card-header bg-primary text-light">
                         <h3 class="card-title">Ingredients!</h3>
+                        <div style="margin-left: auto;">
+                            <a class="hyperbutton" th:href="@{'/recipe/ingredient/create/'+${recipe.id}}">Create Recipe</a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" th:if="${!#lists.isEmpty(recipe.ingredients)}">
@@ -23,6 +26,7 @@
                                 <thead class="flex-column-reverse">
                                 <tr>
                                     <th>ID</th>
+                                    <th>Amount</th>
                                     <th>Description</th>
                                     <th>Unit Of Measure</th>
                                     <th>Actions</th>
@@ -31,7 +35,8 @@
                                 <tbody>
                                 <tr th:each="ingredient:${recipe.ingredients}">
                                     <td th:text="${ingredient.id}"></td>
-                                    <td th:text="${ingredient.getAmount()}"></td>
+                                    <td th:text="${ingredient.amount}"></td>
+                                    <td th:text="${ingredient.description}"></td>
                                     <td th:text="${ingredient.unitOfMeasure.description}"></td>
                                     <td>
                                         <div>

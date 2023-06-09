@@ -11,6 +11,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -71,23 +75,23 @@ class IngredientControllerTest {
     }
 
     @Test
-    public void testNewIngredientForm() throws Exception {
+    public void testCreateIngredientForm() throws Exception {
         //given
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
 
         //when
         when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
-        //when(ingredientService.listAllUoms()).thenReturn(new HashSet<>());
+        when(unitOfMeasureService.getUnitOfMeasures()).thenReturn(new ArrayList<>());
 
         //then
-        mockMvc.perform(get("/recipe/1/ingredient/new"))
+        mockMvc.perform(get("/recipe/ingredient/create/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("recipe/ingredient/ingredientform"))
+                .andExpect(view().name("/recipe/ingredient/form"))
                 .andExpect(model().attributeExists("ingredient"))
                 .andExpect(model().attributeExists("uomList"));
 
-        verify(recipeService, times(1)).findCommandById(anyLong());
+
 
     }
 

@@ -31,7 +31,7 @@
                                     <label>Amount:</label>
                                     <input type="number" class="form-control" th:field="*{amount}"/>
                                 </div>
-
+                                <input type="hidden" th:field="*{recipeId}" th:value="${ingredient.recipeId}"/>
                                 <div class="col-md-3 form-group">
                                     <label>UOM:</label>
                                     <select class="form-control" th:field="*{unitOfMeasure.id}">
@@ -39,7 +39,7 @@
                                                 th:value="${uomEach.id}"
                                                 th:text="${uomEach.description}">Each</option>
                                     </select>
-                                    <input type="hidden" th:field="*{recipe.id}"/>
+
                                 </div>
                             </div>
                         </div>

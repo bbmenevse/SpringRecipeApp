@@ -48,6 +48,7 @@ public class IngredientController {
     {
         IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setRecipeId(id);
+
         model.addAttribute("uomList",unitOfMeasureService.getUnitOfMeasures());
         model.addAttribute("ingredient", ingredientCommand);
         return "/recipe/ingredient/form";
@@ -67,6 +68,17 @@ public class IngredientController {
     @PostMapping("recipe/ingredient")
     public String saveIngredient(@ModelAttribute IngredientCommand ingredientCommand)
     {
+        // Recipe comes null from the form so, i create a temporary recipe and set its id to the original.
+        if(ingredientCommand.getRecipe()==null)
+        {
+            final Recipe recipeTemp = new Recipe();
+            recipeTemp.setId(ingredientCommand.getRecipeId());
+            ingredientCommand.setRecipe(recipeTemp);
+        }
+        if(ingredientCommand.getRecipeId()!=ingredientCommand.getRecipe().getId())
+        {
+            ingredientCommand.getRecipe().setId(ingredientCommand.getRecipe().getId());
+        }
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(ingredientCommand);
         return "redirect:index/" + savedCommand.getRecipeId();
     }
