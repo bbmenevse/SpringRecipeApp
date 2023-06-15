@@ -56,7 +56,6 @@ public class IngredientController {
     }
 
 
-
     @GetMapping("recipe/ingredient/update/{id}")
     public String updateIngredient(@PathVariable Long id, Model model)
     {

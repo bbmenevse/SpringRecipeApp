@@ -54,12 +54,14 @@ public class IndexControllerTest {
         recip.setId(2L);
         recipeSet.add(recip);
 
-        when(recipeService.getRecipes()).thenReturn(recipeSet);
+
 
         ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 
         //when
+        when(recipeService.getRecipes()).thenReturn(recipeSet);
         String viewName=indexController.getIndexPage(model);
+
 
         //then
         assertEquals("index",viewName);
