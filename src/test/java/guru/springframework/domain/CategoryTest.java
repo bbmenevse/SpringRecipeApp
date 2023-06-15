@@ -7,13 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 public class CategoryTest extends TestCase {
-
-    @Mock
-    RecipeRepository recipeRepository;
     private Category category;
 
-    public CategoryTest(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
+    public CategoryTest() {
     }
 
     @BeforeEach
