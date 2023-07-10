@@ -1,10 +1,7 @@
 package guru.springframework.domain;
-import guru.springframework.repositories.RecipeRepository;
 import junit.framework.TestCase;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 public class CategoryTest extends TestCase {
     private Category category;

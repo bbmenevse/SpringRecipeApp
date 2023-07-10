@@ -7,6 +7,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
 
@@ -38,6 +40,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         recipe.setDirections(source.getDirections());
         recipe.setServings(source.getServings());
         recipe.setSource(source.getSource());
+        recipe.setImage(source.getImage());
         recipe.setUrl(source.getUrl());
         recipe.setNotes(notesConverter.convert(source.getNotes()));
 

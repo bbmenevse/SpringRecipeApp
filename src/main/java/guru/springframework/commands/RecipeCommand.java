@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +28,7 @@ public class RecipeCommand {
     private String directions;
     private NotesCommand notes;
     private List<IngredientCommand> ingredients =new ArrayList<>();
-    //private Set<IngredientCommand> ingredients = new HashSet<>();
+    private Byte[] image;
     private Difficulty difficulty;
     private Set<CategoryCommand> categories = new HashSet<>();
 }

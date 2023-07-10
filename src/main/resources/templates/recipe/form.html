@@ -13,7 +13,7 @@
     <div class="container-fluid" style="margin-top: 20px;">
         <div class="row">
             <div class="col-md-6 col-md-offset-3" style="margin:0 auto">
-                <form th:object="${recipe}" th:action="@{/recipe/}"  method="post">
+                <form id="recipeForm"  th:object="${recipe}" th:action="@{/recipe/}"  method="post" enctype="multipart/form-data">
                     <input type="hidden" th:field="*{id}"/>
                     <div class="card-group">
                         <div class="card border-primary" style="background-color: #ea0606">
@@ -21,10 +21,15 @@
                                 <h1 class="card-title">Edit Recipe Information</h1>
                             </div>
                             <div class="card-body">
+
                                 <div class="row">
                                     <div class="col-md-3 form-group">
                                         <label>Recipe Description:</label>
                                         <input type="text" class="form-control" th:field="*{description}"/>
+                                    </div>
+                                    <div class="card-body" style="margin-right:15px">
+                                        <input name="imageFile" type="file"  accept="image/*" class="form-control-file">
+                                        <img  th:src="@{'/recipe/recipeimage/'+ ${recipe.id}}" width="200" height="200" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -139,7 +144,7 @@
                             </div>
                         </div>
                     </div>
-                    <button  type="submit" class="btn btn-primary">Submit</button>
+                    <button   type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
                     <!-- It seems this form needs the id of notes when updating the Recipe, otherwise a new note gets created everytime we update. This breaks the persistance and we get "referential integrity constraint violation exception". -->
                     <!-- This exception happens when you update a recipe and try to delete any recipe after that. -->
                     <input type="hidden" th:field="*{notes.id}"/>
@@ -150,46 +155,81 @@
 </body>
 </html>
 <script>
-  function addIngredient() {
-    // Create a new input field for the ingredient amount
-    var amountInput = document.createElement("input");
-    amountInput.type = "text";
-    amountInput.name = "newIngredientAmount";
-    amountInput.placeholder = "Enter amount";
+  var ingredientArray = []; // Array to store added ingredients
 
-    // Create a new input field for the ingredient description
-    var descriptionInput = document.createElement("input");
-    descriptionInput.type = "text";
-    descriptionInput.name = "newIngredientDescription";
-    descriptionInput.placeholder = "Enter description";
+function addIngredient() {
+  // Create a new input field for the ingredient amount
+  var amountInput = document.createElement("input");
+  amountInput.type = "text";
+  amountInput.name = "newIngredientAmount";
+  amountInput.placeholder = "Enter amount";
 
-    // Create a new select element for the unit of measure
-    var uomSelect = document.createElement("select");
-    uomSelect.name = "newIngredientUOM";
+  // Create a new input field for the ingredient description
+  var descriptionInput = document.createElement("input");
+  descriptionInput.type = "text";
+  descriptionInput.name = "newIngredientDescription";
+  descriptionInput.placeholder = "Enter description";
 
-    // Add options to the unit of measure select element
-    var uomOptions = ["Teaspoon", "Tablespoon", "Cup"];
+  // Create a new select element for the unit of measure
+  var uomSelect = document.createElement("select");
+  uomSelect.name = "newIngredientUOM";
 
-    for (var i = 0; i < uomOptions.length; i++) {
-      var option = document.createElement("option");
-      option.value = uomOptions[i];
-      option.text = uomOptions[i];
-      uomSelect.appendChild(option);
-    }
+  // Add options to the unit of measure select element
+  // TODO: Make it dynamic
+  var uomOptions = ["Teaspoon", "Tablespoon", "Cup"];
 
-    // Create a new list item to contain the ingredient inputs
-    var listItem = document.createElement("li");
-    listItem.appendChild(amountInput);
-    listItem.appendChild(document.createTextNode(" "));
-    listItem.appendChild(uomSelect);
-    listItem.appendChild(document.createTextNode(" - "));
-    listItem.appendChild(descriptionInput);
-
-    // Append the new list item to the ingredient list
-    var ingredientList = document.getElementById("ingredientList");
-    ingredientList.appendChild(listItem);
-
-    // Hide the "Add" button
-    var addIngredientBtn = document.getElementById("addIngredientBtn");
+  for (var i = 0; i < uomOptions.length; i++) {
+    var option = document.createElement("option");
+    option.value = uomOptions[i];
+    option.text = uomOptions[i];
+    uomSelect.appendChild(option);
   }
+
+  // Create a new list item to contain the ingredient inputs
+  var listItem = document.createElement("li");
+  listItem.appendChild(amountInput);
+  listItem.appendChild(document.createTextNode(" "));
+  listItem.appendChild(uomSelect);
+  listItem.appendChild(document.createTextNode(" - "));
+  listItem.appendChild(descriptionInput);
+
+  // Append the new list item to the ingredient list
+  var ingredientList = document.getElementById("ingredientList");
+  ingredientList.appendChild(listItem);
+}
+
+// Submit form
+function submitForm() {
+  // Get all the ingredient rows
+  var ingredientRows = document.querySelectorAll("#ingredientList li");
+
+  // Loop through the ingredient rows and add them to the array
+  for (var i = 0; i < ingredientRows.length; i++) {
+    var row = ingredientRows[i];
+    var amountInput = row.querySelector("input[name='newIngredientAmount']");
+    var descriptionInput = row.querySelector("input[name='newIngredientDescription']");
+    var uomSelect = row.querySelector("select[name='newIngredientUOM']");
+
+    var ingredient = {
+      amount: amountInput.value,
+      description: descriptionInput.value,
+      unitOfMeasure: uomSelect.value
+    };
+
+    ingredientArray.push(ingredient);
+  }
+
+  // Add the ingredient array to a hidden input field in JSON format
+  var ingredientArrayInput = document.createElement("input");
+  ingredientArrayInput.type = "hidden";
+  ingredientArrayInput.name = "ingredientArray";
+  ingredientArrayInput.value = JSON.stringify(ingredientArray);
+
+  // Append the hidden input field to the form
+  var form = document.getElementById("recipeForm");
+  form.appendChild(ingredientArrayInput);
+
+  // Submit the form
+  form.submit();
+}
 </script>
