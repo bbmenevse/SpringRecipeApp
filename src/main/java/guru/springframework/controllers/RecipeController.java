@@ -51,7 +51,7 @@ public class RecipeController {
     }
 
     @PostMapping("recipe")
-    public String saveRecipe(@ModelAttribute RecipeCommand recipeCommand,@RequestParam("imageFile") MultipartFile file,@RequestParam("ingredientArray") String ingredientArrayJson)
+    public String saveRecipe(@ModelAttribute RecipeCommand recipeCommand,@RequestParam("imageFile") MultipartFile file,@RequestParam(name="ingredientArray") String ingredientArrayJson)
     {
 
 
@@ -102,7 +102,7 @@ public class RecipeController {
 
     @GetMapping("recipe/recipeimage/{id}")
     public void renderImageFromDB(@PathVariable Long id, HttpServletResponse response) throws IOException {
-        System.out.println(id);
+        //System.out.println("image id : "+id);
         RecipeCommand recipeCommand = recipeService.findCommandById(id);
         if (recipeCommand.getImage() != null) {
             byte[] byteArray = new byte[recipeCommand.getImage().length];

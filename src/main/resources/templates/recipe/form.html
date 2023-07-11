@@ -188,7 +188,7 @@ function addIngredient() {
   // Create a new list item to contain the ingredient inputs
   var listItem = document.createElement("li");
   listItem.appendChild(amountInput);
-  listItem.appendChild(document.createTextNode(" "));
+  listItem.appendChild(document.createTextNode(" - "));
   listItem.appendChild(uomSelect);
   listItem.appendChild(document.createTextNode(" - "));
   listItem.appendChild(descriptionInput);
@@ -210,13 +210,18 @@ function submitForm() {
     var descriptionInput = row.querySelector("input[name='newIngredientDescription']");
     var uomSelect = row.querySelector("select[name='newIngredientUOM']");
 
-    var ingredient = {
-      amount: amountInput.value,
-      description: descriptionInput.value,
-      unitOfMeasure: uomSelect.value
-    };
+    // Check if the row has the expected input fields
+    if (amountInput && descriptionInput && uomSelect) {
+      var ingredient = {
+        amount: amountInput.value,
+        description: descriptionInput.value,
+        unitOfMeasure: uomSelect.value
+      };
 
-    ingredientArray.push(ingredient);
+      if (descriptionInput.value.trim() !== "") {
+        ingredientArray.push(ingredient);
+      }
+    }
   }
 
   // Add the ingredient array to a hidden input field in JSON format
