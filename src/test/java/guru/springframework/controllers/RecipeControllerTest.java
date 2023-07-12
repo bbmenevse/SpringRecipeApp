@@ -69,13 +69,18 @@ class RecipeControllerTest {
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
+        // Random ingredient array
+        String ingredientArrayJson = "[{\"amount\":\"1\",\"description\":\"Ingredient 1\",\"unitOfMeasure\":\"Teaspoon\"}," +
+                "{\"amount\":\"2\",\"description\":\"Ingredient 2\",\"unitOfMeasure\":\"Tablespoon\"}]";
+
+
         MockMultipartFile file = new MockMultipartFile("imageFile", "test.jpg", "image/jpeg", "Some image data".getBytes());
 
         mockMvc.perform(multipart("/recipe") // Use multipart() for multipart request
                         .file(file) // Add the file to the request
                         .param("id", "")
                         .param("description", "some string")
-                        .param("ingredientArray","something something")
+                        .param("ingredientArray",ingredientArrayJson)
                 )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:view/2"));
