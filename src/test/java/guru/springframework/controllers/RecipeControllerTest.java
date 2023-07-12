@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 class RecipeControllerTest {
 
@@ -69,10 +69,13 @@ class RecipeControllerTest {
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
-        mockMvc.perform(post("/recipe")
-                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        MockMultipartFile file = new MockMultipartFile("imageFile", "test.jpg", "image/jpeg", "Some image data".getBytes());
+
+        mockMvc.perform(multipart("/recipe") // Use multipart() for multipart request
+                        .file(file) // Add the file to the request
                         .param("id", "")
                         .param("description", "some string")
+                        .param("ingredientArray","something something")
                 )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:view/2"));
