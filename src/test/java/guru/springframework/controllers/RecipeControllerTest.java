@@ -1,6 +1,7 @@
 package guru.springframework.controllers;
 
 import guru.springframework.commands.RecipeCommand;
+import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.services.RecipeService;
 import guru.springframework.services.UnitOfMeasureService;
@@ -67,11 +68,16 @@ class RecipeControllerTest {
         RecipeCommand command = new RecipeCommand();
         command.setId(2L);
 
+        UnitOfMeasureCommand uomCommand=new UnitOfMeasureCommand();
+        uomCommand.setId(2L);
+        uomCommand.setDescription("Fish");
+
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
+        when(unitOfMeasureService.findCommandByID(any())).thenReturn(uomCommand);
 
         // Random ingredient array
-        String ingredientArrayJson = "[{\"amount\":\"1\",\"description\":\"Ingredient 1\",\"unitOfMeasure\":\"Teaspoon\"}," +
-                "{\"amount\":\"2\",\"description\":\"Ingredient 2\",\"unitOfMeasure\":\"Tablespoon\"}]";
+        String ingredientArrayJson = "[{\"amount\":\"1\",\"description\":\"Ingredient 1\",\"unitOfMeasure\":\"2\"}," +
+                "{\"amount\":\"2\",\"description\":\"Ingredient 2\",\"unitOfMeasure\":\"2\"}]";
 
 
         MockMultipartFile file = new MockMultipartFile("imageFile", "test.jpg", "image/jpeg", "Some image data".getBytes());

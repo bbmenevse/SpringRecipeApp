@@ -35,7 +35,6 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    @Transactional
     public IngredientCommand findCommandById(Long id) {
         return ingredientToIngredientCommand.convert(findById(id));
     }

@@ -49,9 +49,16 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
                     .forEach( category -> recipe.getCategories().add(categoryConverter.convert(category)));
         }
 
+        //On Create recipe, an empty form is creating a
+        //
+        //
         if (source.getIngredients() != null && source.getIngredients().size() > 0){
-            source.getIngredients()
-                    .forEach(ingredient -> recipe.getIngredients().add(ingredientConverter.convert(ingredient)));
+            source.getIngredients().forEach(ingredient -> {
+                if(ingredient.getRecipe()==null)
+                {ingredient.setRecipe(recipe);
+                    recipe.getIngredients().add(ingredientConverter.convert(ingredient));
+                }});
+
         }
 
         return recipe;

@@ -12,9 +12,9 @@ import java.io.IOException;
 public class UnitOfMeasureJsonDeserializer extends JsonDeserializer<UnitOfMeasure> {
     @Override
     public UnitOfMeasure deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-        String description = jsonParser.getText();
+        String text = jsonParser.getText();
         UnitOfMeasure unitOfMeasure = new UnitOfMeasure();
-        unitOfMeasure.setDescription(description);
+        unitOfMeasure.setId(Long.valueOf(text));
         return unitOfMeasure;
     }
 }

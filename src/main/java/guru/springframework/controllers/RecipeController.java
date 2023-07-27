@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
 
+import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.services.IngredientService;
 import guru.springframework.services.RecipeService;
@@ -54,7 +55,6 @@ public class RecipeController {
     public String saveRecipe(@ModelAttribute RecipeCommand recipeCommand,@RequestParam("imageFile") MultipartFile file,@RequestParam(name="ingredientArray") String ingredientArrayJson)
     {
 
-
         ObjectMapper objectMapper = new ObjectMapper();
         Ingredient[] ingredients= null;
 
@@ -70,6 +70,22 @@ public class RecipeController {
         System.out.println(ingredientArrayJson);
 
 
+        for(Ingredient ingredient: ingredients)
+        {
+
+            final IngredientCommand ingredientCommand = new IngredientCommand();
+            ingredientCommand.setDescription(ingredient.getDescription());
+            ingredientCommand.setAmount(ingredient.getAmount());
+            ingredientCommand.setRecipeId(recipeCommand.getId());
+            // Create new UnitofMeasureCommand object
+            final UnitOfMeasureCommand uomCommand = unitOfMeasureService.findCommandByID(ingredient.getUnitOfMeasure().getId());
+            ingredient.getUnitOfMeasure().getId();
+            uomCommand.setDescription(ingredient.getUnitOfMeasure().getDescription());
+            ingredientCommand.setUnitOfMeasure(uomCommand);
+
+            // Add the ingredientCommands to the list
+            recipeCommand.getIngredients().add(ingredientCommand);
+        }
         //Saving Recipe
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
         //Check if an image was submitted
@@ -93,9 +109,6 @@ public class RecipeController {
 
     @RequestMapping("recipe/delete/{id}")
     public String deleteRecipe(@PathVariable String id) {
-        // Using DeleteMapping raises a "Request method 'GET' not supported" problem.
-        // This works but, it should not be used as it is. It is open to be exploited.
-        // Using Ajax/Javascript on the index.html would be a better solution in a real project, probably?
         recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
     }

@@ -106,7 +106,7 @@
                                                 <input type="hidden" th:field="*{ingredients[__${stat.index}__].id}"/>
                                                 <input type="text" placeholder="Taco Burrito" th:field="*{ingredients[__${stat.index}__].description}"/>
                                                 <input type="text" placeholder="Amount" th:field="*{ingredients[__${stat.index}__].amount}"/>
-                                                <select class="form-control" th:field="*{ingredients[__${stat.index}__].unitOfMeasure.id}">
+                                                <select name="newIngredientUOM" class="form-control" th:field="*{ingredients[__${stat.index}__].unitOfMeasure.id}">
                                                     <option th:each="item : ${uomList}"  th:value="${item.id}" th:text="${item.description}"></option>
                                                 </select>
                                                 <input type="hidden" th:field="*{ingredients[__${stat.index}__].recipe.id}" th:value="${recipe.id}" />
@@ -154,7 +154,8 @@
     </div>
 </body>
 </html>
-<script>
+<script th:inline="javascript">
+/*<![CDATA[*/
   var ingredientArray = []; // Array to store added ingredients
 
 function addIngredient() {
@@ -170,20 +171,23 @@ function addIngredient() {
   descriptionInput.name = "newIngredientDescription";
   descriptionInput.placeholder = "Enter description";
 
-  // Create a new select element for the unit of measure
+
   var uomSelect = document.createElement("select");
   uomSelect.name = "newIngredientUOM";
 
-  // Add options to the unit of measure select element
-  // TODO: Make it dynamic
-  var uomOptions = ["Teaspoon", "Tablespoon", "Cup"];
+  // Get the UOMList from modal
+  var uomList =  /*[[${uomList}]]*/
+  //console.log(uom);
 
-  for (var i = 0; i < uomOptions.length; i++) {
-    var option = document.createElement("option");
-    option.value = uomOptions[i];
-    option.text = uomOptions[i];
-    uomSelect.appendChild(option);
+  // Loop through the uomList and add options to the unit of measure select element
+  for (var i = 0; i < uomList.length; i++) {
+  var option = document.createElement("option");
+  option.value = uomList[i].id;
+  option.text = uomList[i].description;
+  uomSelect.appendChild(option);
   }
+
+
 
   // Create a new list item to contain the ingredient inputs
   var listItem = document.createElement("li");
@@ -237,4 +241,6 @@ function submitForm() {
   // Submit the form
   form.submit();
 }
+
+/*]]>*/
 </script>
