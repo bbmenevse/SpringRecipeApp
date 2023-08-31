@@ -5,6 +5,7 @@ import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Category;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,9 +16,12 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 public class RecipeServiceImplTest{
 
@@ -57,6 +61,7 @@ public class RecipeServiceImplTest{
         verify(recipeRepository,times(1)).findAll();
     }
 
+
     @Test
     public void testRelationshipWithRecipe() {
         Recipe recipe = new Recipe();
@@ -70,4 +75,27 @@ public class RecipeServiceImplTest{
         assertNotNull(savedRecipe);
         assertEquals(1, savedRecipe.getCategories().size());
     }
+
+    //
+    // Exception Tests
+    //
+
+    @Test
+    public void testNotFoundExceptionHandle() throws Exception {
+        // given
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        // when
+        NotFoundException notFoundException = assertThrows(
+                NotFoundException.class, () -> recipeService.findById(5L),
+                "Expected exception to throw an error. But it didn't"
+        );
+
+        // then
+        assertTrue(notFoundException.getMessage().contains("Recipe Not Found"));
+    }
+
+
 }

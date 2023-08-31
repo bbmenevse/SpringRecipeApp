@@ -1,13 +1,13 @@
 package guru.springframework.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.commands.RecipeCommand;
 
 import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.Ingredient;
-import guru.springframework.services.IngredientService;
+
 import guru.springframework.services.RecipeService;
 import guru.springframework.services.UnitOfMeasureService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -15,13 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 public class RecipeController {
@@ -130,6 +128,10 @@ public class RecipeController {
             IOUtils.copy(is, response.getOutputStream());
         }
     }
+
+
+
+
 
 
 }

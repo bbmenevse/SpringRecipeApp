@@ -3,13 +3,14 @@ package guru.springframework.controllers;
 import guru.springframework.commands.RecipeCommand;
 import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.Recipe;
+
 import guru.springframework.services.RecipeService;
 import guru.springframework.services.UnitOfMeasureService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
+
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -35,7 +36,7 @@ class RecipeControllerTest {
         MockitoAnnotations.initMocks(this);
 
         controller = new RecipeController(recipeService,unitOfMeasureService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).setControllerAdvice(new ControllerExceptionHandler()).build();
     }
 
 
@@ -112,5 +113,20 @@ class RecipeControllerTest {
 
         verify(recipeService, times(1)).deleteById(1L);
     }
+
+    //
+    // Exception Tests
+    //
+
+    @Test
+    public void testNumberFormatExceptionHandle() throws Exception {
+        mockMvc.perform(get("/recipe/delete/asd"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("exceptions/400error"));
+
+
+    }
+
+
 
 }

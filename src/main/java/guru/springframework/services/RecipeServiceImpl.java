@@ -4,6 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 @Service
 @Slf4j
@@ -35,10 +37,27 @@ public class RecipeServiceImpl implements RecipeService{
         return recipeSet;
     }
 
+    //Changed it to a way to handle with exceptionHandling.
+    /*
     @Override
     public Recipe findById(Long id) {
         Recipe recipe= recipeRepository.findById(id).orElse(null);
         return recipe;
+    }
+     */
+
+
+    @Override
+    public Recipe findById(Long l) {
+
+        Optional<Recipe> recipeOptional = recipeRepository.findById(l);
+
+        if (!recipeOptional.isPresent()) {
+            //throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundException("Recipe Not Found : " + l);
+        }
+
+        return recipeOptional.get();
     }
 
     @Override
