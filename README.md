@@ -2,6 +2,5 @@
 
 [![CircleCI](https://circleci.com/gh/springframeworkguru/spring5-recipe-app.svg?style=svg)](https://circleci.com/gh/springframeworkguru/spring5-recipe-app)
 
-This repository is for an example application built in my Spring Framework 5 - Beginner to Guru
-
-You can learn about my Spring Framework 5 Online course [here.](https://go.springframework.guru/spring-framework-5-online-course)
+This is an examplery app that i am building alogside course I got from Udemy, which you can check on [here.](https://www.udemy.com/course/spring-framework-5-beginner-to-guru/).
+I branched this app from the base and built it on my own along with the course but with changes. You can check the original [here.](https://github.com/springframeworkguru/spring5-recipe-app).
