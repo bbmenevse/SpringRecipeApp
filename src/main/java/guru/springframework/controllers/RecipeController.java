@@ -13,10 +13,12 @@ import guru.springframework.services.UnitOfMeasureService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,8 +52,15 @@ public class RecipeController {
     }
 
     @PostMapping("recipe")
-    public String saveRecipe(@ModelAttribute RecipeCommand recipeCommand,@RequestParam("imageFile") MultipartFile file,@RequestParam(name="ingredientArray") String ingredientArrayJson)
+    public String saveRecipe(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand, BindingResult bindingResult, @RequestParam("imageFile") MultipartFile file, @RequestParam(name="ingredientArray") String ingredientArrayJson)
     {
+
+
+        if(bindingResult.hasErrors())
+        {
+            return "recipe/form";
+        }
+
 
         ObjectMapper objectMapper = new ObjectMapper();
         Ingredient[] ingredients= null;
@@ -64,8 +73,8 @@ public class RecipeController {
             // Handle JSON parsing exception
             e.printStackTrace();
         }
-        //System.out.println(Arrays.toString(ingredients));
-        System.out.println(ingredientArrayJson);
+
+        //System.out.println(ingredientArrayJson);
 
 
         for(Ingredient ingredient: ingredients)

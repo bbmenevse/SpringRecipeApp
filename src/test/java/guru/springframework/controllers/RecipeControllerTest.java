@@ -68,6 +68,7 @@ class RecipeControllerTest {
     public void testPostNewRecipeForm() throws Exception {
         RecipeCommand command = new RecipeCommand();
         command.setId(2L);
+        command.setDirections("Left Right, shake up and down");
 
         UnitOfMeasureCommand uomCommand=new UnitOfMeasureCommand();
         uomCommand.setId(2L);
@@ -88,6 +89,7 @@ class RecipeControllerTest {
                         .param("id", "")
                         .param("description", "some string")
                         .param("ingredientArray",ingredientArrayJson)
+                        .param("url","https://www.google.com/search?q=url&oq=url&aqs=chrome..69i57j0i67i650l4j69i60l3.295j0j7&sourceid=chrome&ie=UTF-8")
                 )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:view/2"));
