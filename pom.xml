@@ -41,7 +41,7 @@
 			<!-- After going back to community version of Intellij from Ultimate edition, Lombok version cause Maven to give out errors. -->
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>
+			<version>1.18.30</version>
 		</dependency>
 
 		<dependency>

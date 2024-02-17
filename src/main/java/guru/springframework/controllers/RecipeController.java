@@ -42,11 +42,14 @@ public class RecipeController {
         return "recipe/view";
     }
 
+    @SuppressWarnings("squid:S3626")
     @GetMapping("recipe/new")
     public String createRecipe(Model model)
     {
+        //Since I use the recipe/form for both create and edit, I use hidden id on form.
+        //But id on new RecipeCommand is null, and when thymeleaf tries to convert that as Long, it generates a warning.
         model.addAttribute("recipe",new RecipeCommand());
-        model.addAttribute("ingredients", new IngredientCommand());
+        model.addAttribute("ingredients",new IngredientCommand());
         model.addAttribute("uomList", unitOfMeasureService.getUnitOfMeasures());
         return "recipe/form";
     }
