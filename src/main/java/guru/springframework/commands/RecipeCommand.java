@@ -1,16 +1,14 @@
 package guru.springframework.commands;
 
 import guru.springframework.enums.Difficulty;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.annotation.PostConstruct;
-import javax.validation.constraints.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.Set;
 public class RecipeCommand {
     private Long id;
     @NotBlank
-    @Size(min=3,max=999)
+    @Size(min=3, max=999)
     private String description;
     @Min(1)
     @Max(999)

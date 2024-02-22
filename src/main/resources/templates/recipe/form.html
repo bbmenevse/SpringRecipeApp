@@ -16,7 +16,7 @@
                 <form id="recipeForm"  th:object="${recipe}" th:action="@{/recipe/}"  method="post" enctype="multipart/form-data">
                     <input type="hidden" th:field="*{id}"/>
                     <div class="card-group">
-                        <div class="card border-primary" style="background-color: #ea0606">
+                        <div class="card border-primary" >
                             <div class="card-header">
                                 <h1 class="card-title">Edit Recipe Information</h1>
                             </div>
@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="card-body" style="margin-right:15px">
                                         <input name="imageFile" type="file"  accept="image/*" class="form-control-file">
-                                        <img  th:src="@{'/recipe/recipeimage/'+ ${recipe.id}}" width="200" height="200" />
+                                        <img  th:src="@{'/recipe/recipeimage/'+ (${recipe.id} ?:'null')}" width="200" height="200" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -57,13 +57,23 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('prepTime')} ? 'col-md-12 form-group text-danger' : 'col-md-12 form-group'">
                                         <label>Prep Time:</label>
                                         <input type="text" class="form-control" th:field="*{prepTime}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('prepTime')}">
+                                            <ul>
+                                                <li th:each="err : ${#fields.errors('prepTime')}" th:text="${#strings.capitalize(err)}" style="color: blue;"></li>
+                                            </ul>
+                                        </span>
                                     </div>
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('prepTime')} ? 'col-md-12 form-group text-danger' : 'col-md-12 form-group'">
                                         <label>Cooktime:</label>
                                         <input type="text" class="form-control" th:field="*{cookTime}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('cookTime')}">
+                                            <ul>
+                                                <li th:each="err : ${#fields.errors('cookTime')}" th:text="${#strings.capitalize(err)}" style="color: blue;"></li>
+                                            </ul>
+                                        </span>
                                     </div>
                                     <div class="col-md-3 form-group">
                                         <label>Difficulty:</label>
@@ -75,22 +85,33 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('servings')} ? 'col-md-12 form-group text-danger' : 'col-md-12 form-group'">
                                         <label>Servings:</label>
                                         <input type="text" class="form-control" th:field="*{servings}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('servings')}">
+                                            <ul>
+                                                <li th:each="err : ${#fields.errors('servings')}" th:text="${#strings.capitalize(err)}" style="color: blue;"></li>
+                                            </ul>
+                                        </span>
                                     </div>
                                     <div class="col-md-3 form-group">
                                         <label>Source:</label>
                                         <input type="text" class="form-control" th:field="*{source}"/>
                                     </div>
-                                    <div class="col-md-3 form-group">
+                                    <div class="col-md-3 form-group" th:class="${#fields.hasErrors('url')} ? 'col-md-12 form-group text-danger' : 'col-md-12 form-group'">
                                         <label>URL:</label>
                                         <input type="text" class="form-control" th:field="*{url}"/>
+                                        <span class="help-block" th:if="${#fields.hasErrors('url')}">
+                                            <ul>
+                                                <li th:each="err : ${#fields.errors('url')}" th:text="${#strings.capitalize(err)}" style="color: blue;"></li>
+                                            </ul>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Buraya kadar olan kısımda sorun var -->
                     <div class="card-group" style="margin-top: 10px">
                         <div class="card border-primary">
                             <div class="card-heading">
