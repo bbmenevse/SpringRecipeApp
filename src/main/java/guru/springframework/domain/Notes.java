@@ -1,8 +1,9 @@
 package guru.springframework.domain;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
+
 
 @Data
 @EqualsAndHashCode(exclude = "recipe")
@@ -13,10 +14,10 @@ public class Notes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "notes")
     private Recipe recipe;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String notes;
 
 }

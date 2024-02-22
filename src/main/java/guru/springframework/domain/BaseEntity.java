@@ -1,8 +1,9 @@
 package guru.springframework.domain;
 
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class BaseEntity {
+
 
 }

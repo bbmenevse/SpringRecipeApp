@@ -3,7 +3,7 @@ package guru.springframework.domain;
 import guru.springframework.enums.Difficulty;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +23,7 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String directions;
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;

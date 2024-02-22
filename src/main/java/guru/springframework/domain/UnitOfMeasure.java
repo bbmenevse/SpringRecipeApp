@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import guru.springframework.json.UnitOfMeasureJsonDeserializer;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Data
 @Entity
@@ -17,6 +19,16 @@ public class UnitOfMeasure {
 
     private String description;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UnitOfMeasure that = (UnitOfMeasure) o;
+        return Objects.equals(description, that.description);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(description);
+    }
 }
