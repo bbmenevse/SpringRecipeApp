@@ -1,9 +1,10 @@
 package guru.springframework.domain;
-import junit.framework.TestCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class CategoryTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class CategoryTest{
     private Category category;
 
     public CategoryTest() {
@@ -15,6 +16,7 @@ public class CategoryTest extends TestCase {
         category = new Category();
     }
 
+    @Test
     public void testGetId() {
 
         category.setId(1L);

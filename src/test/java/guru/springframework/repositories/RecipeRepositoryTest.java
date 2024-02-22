@@ -4,14 +4,18 @@ import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
+import org.springframework.test.context.ActiveProfiles;
 import java.util.HashSet;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DataJpaTest
+@ActiveProfiles("test")
 class RecipeRepositoryTest {
 
     @Autowired
@@ -19,6 +23,8 @@ class RecipeRepositoryTest {
 
     @Autowired
     IngredientRepository ingredientRepository;
+
+
 
     @BeforeEach
     public void setUp()
