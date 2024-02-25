@@ -84,7 +84,7 @@ class RecipeControllerTest {
 
         MockMultipartFile file = new MockMultipartFile("imageFile", "test.jpg", "image/jpeg", "Some image data".getBytes());
 
-        mockMvc.perform(multipart("/recipe") // Use multipart() for multipart request
+        mockMvc.perform(multipart("/recipe/") // Use multipart() for multipart request
                         .file(file) // Add the file to the request
                         .param("id", "")
                         .param("description", "some string")
