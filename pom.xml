@@ -112,7 +112,7 @@
 					<excludes>
 						<exclude>**/RecipeRepositoryTest.java</exclude>
 						<exclude>**/UnitOfMeasureRepositoryTest.java</exclude>
-						<exclude>**/Spring5RecipeAppApplicationTests.java#contextLoads</exclude>
+						<exclude>**/Spring5RecipeAppApplicationTests.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
