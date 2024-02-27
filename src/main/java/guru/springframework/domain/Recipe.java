@@ -4,6 +4,8 @@ import guru.springframework.enums.Difficulty;
 import lombok.*;
 
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.Length;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Length(max = 75)
     private String description;
     private Integer prepTime;
     private Integer cookTime;
@@ -34,6 +37,7 @@ public class Recipe {
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
     @Lob
+    @Column(length=5777215)
     private Byte[] image;
 
     @ManyToMany

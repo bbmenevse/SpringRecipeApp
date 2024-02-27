@@ -38,6 +38,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         //recipeRepository.saveAll(getRecipes());
     }
 
+    // Check If the data.sql is uploaded correctly.
     private List<Recipe> getRecipes() {
 
         List<Recipe> recipes = new ArrayList<>(2);

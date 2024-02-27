@@ -13,6 +13,7 @@ import guru.springframework.services.UnitOfMeasureService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,6 +52,7 @@ public class RecipeController {
         model.addAttribute("recipe",new RecipeCommand());
         model.addAttribute("ingredients",new IngredientCommand());
         model.addAttribute("uomList", unitOfMeasureService.getUnitOfMeasures());
+        model.addAttribute("mode", "create");
         return "recipe/form";
     }
 
@@ -115,6 +117,7 @@ public class RecipeController {
     {
         model.addAttribute("recipe",recipeService.findCommandById(id));
         model.addAttribute("uomList",unitOfMeasureService.getUnitOfMeasures());
+        model.addAttribute("mode", "update");
         return "recipe/form";
     }
 
@@ -140,7 +143,30 @@ public class RecipeController {
             InputStream is = new ByteArrayInputStream(byteArray);
             IOUtils.copy(is, response.getOutputStream());
         }
+        //if no image, return null.png
+        else {
+            ClassPathResource defaultImageResource = new ClassPathResource("static/images/null.png");
+            response.setContentType("image/png");
+
+            try (InputStream is = defaultImageResource.getInputStream()) {
+                IOUtils.copy(is, response.getOutputStream());
+            }
+
+        }
     }
+
+    @GetMapping("recipe/recipeimage/null")
+    //Since id is null while creating a new recipe, I return an empty image as place holder.
+    public void nullImage(HttpServletResponse response) throws IOException {
+
+        ClassPathResource defaultImageResource = new ClassPathResource("static/images/null.png");
+        response.setContentType("image/png");
+
+        try (InputStream is = defaultImageResource.getInputStream()) {
+            IOUtils.copy(is, response.getOutputStream());
+        }
+    }
+
 
 
 
