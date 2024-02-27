@@ -96,6 +96,10 @@
 					<includes>
 						<include>**/*IT.java</include>
 					</includes>
+					<excludes>
+						<exclude>**/RecipeRepositoryTest.java</exclude>
+						<exclude>**/UnitOfMeasureRepositoryTest.java</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
