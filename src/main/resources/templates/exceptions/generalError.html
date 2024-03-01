@@ -13,12 +13,9 @@
 <body>
 <div class="d-flex align-items-center justify-content-center vh-100">
     <div class="text-center">
-        <h1 class="display-1 fw-bold" th:text="${response}"></h1>
-        <p class="fs-3"> <span class="text-danger" th:text="${'Oopps! ' + exception.getClass() }"></span> </p>
-        <p class="lead" th:text="${exception.getMessage()}" ></p>
-        <p th:text="${exception.getCause()}">
-
-        </p>
+        <h1 class="display-1 fw-bold">Something Went Wrong!</h1>
+        <p class="fs-3"> <span class="text-danger">Oopps! Something went Wrong</span> </p>
+        <p class="lead" ></p>
         <a th:href="@{'/index'}" class="btn btn-primary">Go Home</a>
     </div>
 </div>
