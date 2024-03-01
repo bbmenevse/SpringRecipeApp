@@ -39,7 +39,6 @@ public class Recipe {
     @Lob
     @Column(length=5777215)
     private Byte[] image;
-
     @ManyToMany
     @JoinTable(name = "recipe_category",
             joinColumns = @JoinColumn(name="recipe_id"),

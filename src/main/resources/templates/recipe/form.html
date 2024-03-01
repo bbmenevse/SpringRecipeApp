@@ -10,6 +10,7 @@
 
 </head>
 <body>
+    <div th:insert="~{fragments/header.html::header}"></div>
     <div class="container-fluid" style="margin-top: 20px;">
         <div class="row">
             <div class="col-md-6 col-md-offset-3" style="margin:0 auto">
@@ -94,13 +95,13 @@
                     </div>
                     <div class="card-group" style="margin-top: 10px">
                         <div class="card border-primary">
-                            <div class="card-heading">
+                            <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-11">
                                         <h1 class="card-title">Ingredients</h1>
                                     </div>
                                     <div class="col-md-1">
-                                        <button class="btn btn-default" type="button" id="addIngredientBtn" onclick="addIngredient()">Add</button>
+                                        <button class="btn-add" type="button" id="addIngredientBtn" onclick="addIngredient()">Add</button>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +126,7 @@
                     </div>
                     <div class="card-group" style="margin-top: 10px">
                         <div class="card border-primary">
-                            <div class="card-heading">
+                            <div class="card-header">
                                 <h1 class="card-title">Directions</h1>
                             </div>
                             <div class="card-body">
@@ -150,7 +151,9 @@
                             </div>
                         </div>
                     </div>
-                    <button   type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+                    </div>
                     <!-- It seems this form needs the id of notes when updating the Recipe, otherwise a new note gets created everytime we update. This breaks the persistance and we get "referential integrity constraint violation exception". -->
                     <!-- This exception happens when you update a recipe and try to delete any recipe after that. -->
                     <input type="hidden" th:field="*{notes.id}"/>

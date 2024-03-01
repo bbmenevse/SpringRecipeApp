@@ -12,6 +12,7 @@
 
 </head>
 <body>
+<div th:insert="~{fragments/header.html::header}"></div>
 <form action="#" class="form-control form-control-sm" th:action="'new/add'" th:object="${job}"
       method="post">
     <!-- Unused, I use form for both creating and updating -->
