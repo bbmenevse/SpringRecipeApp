@@ -10,6 +10,7 @@
 
 </head>
 <body>
+<div th:insert="~{fragments/header.html::header}"></div>
     <div class="container-fluid" style="margin-top: 20px">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -119,8 +120,9 @@
                         </div>
                     </div>
                 </div>
+                    <a type="button"  style="display: block; width: 100%; margin-top: 10px; background-color: purple; border: 2px solid purple; color: white;"  class="btn btn-primary btn-lg" th:href="@{'/index'}" > Go back to Homepage</a>
             </div>
-            <a type="button" class="btn btn-primary btn-lg" th:href="@{'/index'}" > Go back to Homepage</a>
+
         </div>
     </div>
 
