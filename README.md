@@ -35,7 +35,7 @@ I've used Datatable template from jquery and Bootstrap. User can do create, read
 <img src="src/main/resources/static/images/recipe_create.png" alt="Recipe Create Page" height="700" />
 
 I've saved a default image for recipes without images. If a new image is selected, the previous image is replaced, and the newly selected image is displayed. Object validations are handled in their respective command classes. If the validation fails, the model is returned with errors, and these errors are then marked on the page.   
-I implemented an 'Add' button on the Recipe page to dynamically add ingredients. Any number of ingredients can be created through this button. The ingredients generated in this manner do not get submitted through the form; instead, they are sent as JSON. Both the form and JSON data are then utilized in the controller. I tried this approach to test if the of sending a JSON object array along with the form is possible.  
+I implemented an 'Add' button on the Recipe page to dynamically add ingredients. Any number of ingredients can be created through this button. The ingredients generated in this manner do not get submitted through the form; instead, they are sent as JSON. Both the form and JSON data are then utilized in the controller. I tried this approach to test if it is possible to send a JSON object array along with the form.
 
 <img src="src/main/resources/static/images/recipe_update.png" alt="Recipe Update Page" height="700" />
 
