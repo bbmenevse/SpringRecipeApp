@@ -22,7 +22,7 @@ You can check the objects' relations in the image below.
 
 - Used Thymeleaf for server-side rendering.
 - Used Bootstrap 5 to simplify the visual design and responsiveness of my web application.  
-- Used a small amount of jquery, Javascript and CSS.
+- Used jquery, Javascript and CSS.
 
 # Application
 
